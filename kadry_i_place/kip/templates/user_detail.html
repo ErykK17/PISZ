@@ -5,28 +5,28 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-4">
-          <h1 class="card-title">User Profile Detail</h1>
+          <h1 class="card-title">Profil Pracownika</h1>
           <p class="card-text"><strong>Imię i nazwisko:</strong> {{ user_profile.user }}</p>
-          <p class="card-text"><strong>User Type:</strong> {{ user_profile.user_type }}</p>
-          <p class="card-text"><strong>Phone Number:</strong> {{ user_profile.phone_number }}</p>
+          <p class="card-text"><strong>Rodzaj użytkownika:</strong> {{ user_profile.user_type }}</p>
+          <p class="card-text"><strong>Numer telefonu:</strong> {{ user_profile.phone_number }}</p>
           <p class="card-text"><strong>Pesel:</strong> {{ user_profile.pesel }}</p>
-          <p class="card-text"><strong>Home Address:</strong> {{ user_profile.home_adress }}</p>
-          <p class="card-text"><strong>Position:</strong> {{ user_profile.position }}</p>
-          <p class="card-text"><strong>Department:</strong> {{ user_profile.department }}</p>
+          <p class="card-text"><strong>Adres zamieszkania:</strong> {{ user_profile.home_adress }}</p>
+          <p class="card-text"><strong>Posada:</strong> {{ user_profile.position }}</p>
+          <p class="card-text"><strong>Oddział:</strong> {{ user_profile.department }}</p>
 
-          <!-- Display Certificates with a link -->
+          <!-- Display Certyfikaty with a link -->
           {% if user_profile.certificates %}
-            <p class="card-text"><strong>Certificates:</strong> <a href="{{ user_profile.certificates.url }}"
-                                                                   target="_blank">View Certificates</a></p>
+            <p class="card-text"><strong>Certyfikaty:</strong> <a href="{{ user_profile.certificates.url }}"
+                                                                   target="_blank">View Certyfikaty</a></p>
           {% else %}
-            <p class="card-text"><strong>Certificates:</strong> Brak certyfikatów</p>
+            <p class="card-text"><strong>Certyfikaty:</strong> Brak certyfikatów</p>
           {% endif %}
-          <!-- Display Family Data with a link -->
+          <!-- Display Dane dot. rodziny with a link -->
           {% if user_profile.family_data %}
-            <p class="card-text"><strong>Family Data:</strong> <a href="{{ user_profile.family_data.url }}"
+            <p class="card-text"><strong>Dane dot. rodziny:</strong> <a href="{{ user_profile.family_data.url }}"
                                                                   target="_blank">View Dane Rodziny</a></p>
           {% else %}
-            <p class="card-text"><strong>Certificates:</strong> Brak danych rodziny</p>
+            <p class="card-text"><strong>Dane dot. rodziny:</strong> Brak danych rodziny</p>
           {% endif %}
         {% if  user.user.user_type == 'kierownik'%}
           <div class="mt-auto">
