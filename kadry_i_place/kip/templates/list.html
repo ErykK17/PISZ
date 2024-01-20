@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>User Profiles</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col">User Type</th>
+      <th scope="col">Phone Number</th>
+      <!-- Add more columns as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    {% for user_profile in user_profiles %}
+      {% if user_profile.user_type != 'kierownik' %}
+        <tr onclick="window.location='{% url 'profile' user_profile.id %}'" style="cursor: pointer;">
+          <td>{{ user_profile.user.username }}</td>
+          <td>{{ user_profile.user_type }}</td>
+          <td>{{ user_profile.phone_number }}</td>
+          <!-- Add more columns as needed -->
+        </tr>
+      {% endif %}
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -2,9 +2,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.views.generic import DetailView, ListView
+
 from .forms import UserLoginForm, UserRegistrationForm
 from .models import UserProfile
 from django.contrib.auth.decorators import login_required
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -15,14 +18,19 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')  # zamień 'home' na nazwę widoku, gdzie chcesz przekierować po zalogowaniu
+                if user.user.user_type == 'kierownik':
+                    return redirect('userprofile_list')  # zamień 'home' na nazwę widoku, gdzie chcesz przekierować po zalogowaniu
+                else:
+                    return redirect('home')
     else:
         form = UserLoginForm()
     return render(request, 'login.html', {'form': form})
 
+
 def user_logout(request):
     logout(request)
-    return redirect('login')  # zamień 'login' na nazwę widoku, gdzie chcesz przekierować po wylogowaniu
+    return redirect('user_login')  # zamień 'login' na nazwę widoku, gdzie chcesz przekierować po wylogowaniu
+
 
 def user_register(request):
     if request.method == 'POST':
@@ -37,8 +45,20 @@ def user_register(request):
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
 
+
 @login_required
 def home(request):
     username = request.user.username
     return render(request, 'home.html', {'username': username})
 
+
+class UserProfileDetailView(DetailView):
+    model = UserProfile
+    template_name = 'user_detail.html'
+    context_object_name = 'user_profile'
+
+
+class UserProfileListView(ListView):
+    model = UserProfile
+    template_name = 'list.html'  # Replace with your actual template name
+    context_object_name = 'user_profiles'

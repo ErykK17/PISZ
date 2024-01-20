@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <h1 class="card-title">User Profile Detail</h1>
+          <p class="card-text"><strong>Imię i nazwisko:</strong> {{ user_profile.user }}</p>
+          <p class="card-text"><strong>User Type:</strong> {{ user_profile.user_type }}</p>
+          <p class="card-text"><strong>Phone Number:</strong> {{ user_profile.phone_number }}</p>
+          <p class="card-text"><strong>Pesel:</strong> {{ user_profile.pesel }}</p>
+          <p class="card-text"><strong>Home Address:</strong> {{ user_profile.home_adress }}</p>
+          <p class="card-text"><strong>Position:</strong> {{ user_profile.position }}</p>
+          <p class="card-text"><strong>Department:</strong> {{ user_profile.department }}</p>
+
+          <!-- Display Certificates with a link -->
+          {% if user_profile.certificates %}
+            <p class="card-text"><strong>Certificates:</strong> <a href="{{ user_profile.certificates.url }}"
+                                                                   target="_blank">View Certificates</a></p>
+          {% else %}
+            <p class="card-text"><strong>Certificates:</strong> Brak certyfikatów</p>
+          {% endif %}
+          <!-- Display Family Data with a link -->
+          {% if user_profile.family_data %}
+            <p class="card-text"><strong>Family Data:</strong> <a href="{{ user_profile.family_data.url }}"
+                                                                  target="_blank">View Dane Rodziny</a></p>
+          {% else %}
+            <p class="card-text"><strong>Certificates:</strong> Brak danych rodziny</p>
+          {% endif %}
+        {% if  user.user.user_type == 'kierownik'%}
+          <div class="mt-auto">
+            <a href="/admin/kip/userprofile/{{ object.id }}/change/" class="btn btn-primary">Edytuj Użytkownika</a>
+          </div>
+        {% endif %}
+        </div>
+      <div class="col-md-2"></div>
+        <div class="col-md-6">
+          <!-- Display Profile Picture with a link -->
+          {% if user_profile.profile_picture %}
+            <img src="{{ user_profile.profile_picture.url }}" class="img-thumbnail" alt="Profile Picture"
+                 style="width: 100%; height: 100%;">
+          {% else %}
+            <p class="card-text"><strong>Zdjęcie profilowe:</strong> Brak zdjęcia profilowego</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
